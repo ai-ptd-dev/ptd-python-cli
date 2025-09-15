@@ -2,19 +2,23 @@ use anyhow::Result;
 use clap::{Parser, Subcommand};
 use std::path::PathBuf;
 
-mod commands {
-    pub mod benchmark;
-    pub mod hello;
-    pub mod version;
+mod basiccli {
+    pub mod commands {
+        pub mod benchmark;
+        pub mod hello;
+        pub mod version;
+    }
+
+    pub mod utils {
+        pub mod file_handler;
+        pub mod logger;
+    }
 }
 
-mod utils {
-    pub mod file_handler;
-    pub mod logger;
-}
-
-use commands::{benchmark::BenchmarkCommand, hello::HelloCommand, version::VersionCommand};
-use utils::logger::Logger;
+use basiccli::commands::{
+    benchmark::BenchmarkCommand, hello::HelloCommand, version::VersionCommand,
+};
+use basiccli::utils::logger::Logger;
 
 #[derive(Parser)]
 #[command(name = "basiccli-rust")]
@@ -115,9 +119,9 @@ fn main() -> Result<()> {
 
 fn process_file(file: PathBuf, pretty: bool, stats: bool) -> Result<()> {
     let logger = Logger::new(if stats {
-        utils::logger::LogLevel::Debug
+        basiccli::utils::logger::LogLevel::Debug
     } else {
-        utils::logger::LogLevel::Info
+        basiccli::utils::logger::LogLevel::Info
     });
 
     logger.info(&format!("Processing file: {}", file.display()));

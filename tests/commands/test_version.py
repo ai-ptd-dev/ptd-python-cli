@@ -1,10 +1,9 @@
 import json
 import sys
 
-import pytest
-
 sys.path.insert(0, "src")
-from basiccli.commands.version import VersionCommand
+
+from basiccli.commands.version import VersionCommand  # noqa: E402
 
 
 class TestVersionCommand:

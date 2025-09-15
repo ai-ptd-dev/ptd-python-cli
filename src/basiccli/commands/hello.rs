@@ -30,12 +30,12 @@ impl HelloCommand {
         Ok(())
     }
 
-    fn build_greeting(&self) -> String {
+    pub fn build_greeting(&self) -> String {
         let time_of_day = self.get_time_of_day();
         format!("{}, {}! Welcome to BasicCli", time_of_day, self.name)
     }
 
-    fn get_time_of_day(&self) -> &str {
+    pub fn get_time_of_day(&self) -> &str {
         use chrono::Timelike;
         let hour = Local::now().hour();
 

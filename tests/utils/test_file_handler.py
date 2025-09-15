@@ -1,14 +1,13 @@
-import json
-import os
 import shutil
 import sys
 import tempfile
 from pathlib import Path
 
-import pytest
-
 sys.path.insert(0, "src")
-from basiccli.utils.file_handler import FileError, FileHandler
+
+import pytest  # noqa: E402
+
+from basiccli.utils.file_handler import FileError, FileHandler  # noqa: E402
 
 
 class TestFileHandler:

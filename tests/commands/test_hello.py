@@ -1,12 +1,10 @@
 import sys
-from datetime import datetime
-from io import StringIO
-from unittest.mock import patch
-
-import pytest
 
 sys.path.insert(0, "src")
-from basiccli.commands.hello import HelloCommand
+
+from unittest.mock import patch  # noqa: E402
+
+from basiccli.commands.hello import HelloCommand  # noqa: E402
 
 
 class TestHelloCommand:
@@ -21,7 +19,7 @@ class TestHelloCommand:
 
     def test_includes_time_based_greeting(self, capsys):
         command = HelloCommand("Bob")
-        result = command.execute()
+        command.execute()
 
         captured = capsys.readouterr()
         assert any(
@@ -31,7 +29,7 @@ class TestHelloCommand:
 
     def test_uppercase_option(self, capsys):
         command = HelloCommand("Charlie", uppercase=True)
-        result = command.execute()
+        command.execute()
 
         captured = capsys.readouterr()
         assert captured.out.isupper()
@@ -39,7 +37,7 @@ class TestHelloCommand:
 
     def test_repeat_option(self, capsys):
         command = HelloCommand("David", repeat=3)
-        result = command.execute()
+        command.execute()
 
         captured = capsys.readouterr()
         lines = captured.out.strip().split("\n")

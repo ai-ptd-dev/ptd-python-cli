@@ -3,10 +3,16 @@ import tempfile
 from io import StringIO
 from unittest.mock import MagicMock
 
-import pytest
-
 sys.path.insert(0, "src")
-from basiccli.utils.logger import FileLogger, Logger, LogLevel, MultiLogger
+
+import pytest  # noqa: E402
+
+from basiccli.utils.logger import (  # noqa: E402
+    FileLogger,
+    Logger,
+    LogLevel,
+    MultiLogger,
+)
 
 
 class TestLogger:

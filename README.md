@@ -4,6 +4,8 @@
 
 This framework demonstrates **PTD (Polyglot Transpilation Development)** - a developer-first approach where you write Python code and OpenCode AI agents automatically create optimized Rust versions. No manual porting, no compromise on performance.
 
+**Note**: This is a Python/Rust implementation forked from the original [Ruby/Rust PTD repository](https://github.com/ai-ptd-dev/ptd-ruby-cli). All concepts and methodologies remain the same, but now using Python as the high-level language instead of Ruby.
+
 ## 🚀 Quick Start for Developers
 
 ### Start Your Own Project (Fork This!)
@@ -70,6 +72,7 @@ OpenCode agents automatically optimized the transpilation to achieve:
 - **🎯 Context-Aware**: Maintains business logic and error handling
 - **📋 Test Generation**: Creates comprehensive test suites automatically
 - **🔧 Optimization**: Applies language-specific performance patterns
+- **🔄 Language Agnostic**: Works with Python→Rust (this repo) and Ruby→Rust (original)
 
 [Learn more about PTD →](docs/base/ptd-paradigm.md)
 
@@ -83,7 +86,7 @@ OpenCode agents automatically optimized the transpilation to achieve:
 │   ├── python-dev.md      # Python expert following SOLID principles
 │   └── rust-transpiler.md # Rust expert for transpilation
 └── command/               # OpenCode commands you can run
-    ├── transpile.md       # Auto-transpile Ruby changes to Rust
+    ├── transpile.md       # Auto-transpile Python changes to Rust
     └── setup.md          # Convert boilerplate to your project
 ```
 
@@ -99,8 +102,8 @@ opencode
             # - Renames all BasicCli references to your project
             # - Updates documentation and configuration
 
-/transpile  # Automatically transpile Ruby changes to Rust
-            # - Detects modified Ruby files via git
+/transpile  # Automatically transpile Python changes to Rust
+            # - Detects modified Python files via git
             # - Generates equivalent Rust code
             # - Runs tests for both languages
             # - Applies formatting and linting
@@ -148,18 +151,23 @@ ptd-python-cli/
 │   ├── agent/             # AI agent definitions
 │   └── command/           # Automation commands
 ├── src/
-│   ├── basiccli/
+│   ├── basiccli/          # Python source tree
 │   │   ├── cli.py         # Python entry point
 │   │   ├── commands/
-│   │   │   └── *.py       # Your Python implementations
+│   │   │   ├── *.py       # Python implementations
+│   │   │   └── *.rs       # Rust versions (side-by-side)
 │   │   └── utils/
-│   │       └── *.py       # Python utilities
-│   ├── cli.rs             # Rust entry point (AI-transpiled)
-│   ├── commands/
-│   │   └── *.rs           # AI-generated Rust versions
-│   └── utils/
-│       └── *.rs           # Rust utilities (AI-transpiled)
+│   │       ├── *.py       # Python utilities
+│   │       └── *.rs       # Rust utilities (side-by-side)
+│   ├── cli.rs             # Rust entry point
+│   └── lib.rs             # Rust library exports
 ├── tests/                  # Test suites for both languages
+│   ├── commands/
+│   │   ├── test_*.py      # Python tests
+│   │   └── test_*.rs      # Rust tests (side-by-side)
+│   └── utils/
+│       ├── test_*.py      # Python utility tests  
+│       └── test_*.rs      # Rust utility tests (side-by-side)
 ├── bin/                    # Developer tools
 │   ├── compile            # Build Rust binary
 │   ├── test              # Run Rust tests
@@ -293,7 +301,7 @@ impl MyFeature {
 - **Performance Optimization**: Applies Rust best practices automatically
 
 ### Try the TodoCLI Example
-The **[todo-list-example branch](https://github.com/ai-ptd-dev/ptd-ruby-cli/tree/todo-list-example)** contains a complete todo list manager showing:
+The **[todo-list-example branch](https://github.com/ai-ptd-dev/ptd-python-cli/tree/todo-list-example)** contains a complete todo list manager showing:
 - Full CRUD operations with SQLite
 - Priority management and filtering
 - JSON export/import
@@ -335,7 +343,7 @@ cp target/release/mycli-rust /usr/local/bin/mycli
 2. **🤖 Agent Enhancement**: Improve transpilation quality and coverage
 3. **📊 Benchmarking**: Add performance analysis and optimization
 4. **📚 Documentation**: Expand PTD methodology and examples
-5. **🌐 Language Support**: Extend beyond Ruby→Rust transpilation
+5. **🌐 Language Support**: Extend Python→Rust transpilation or add other language pairs
 
 ### Contribution Guidelines
 - Maintain functional parity between language implementations

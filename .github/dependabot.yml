@@ -1,7 +1,7 @@
 version: 2
 updates:
-  # Ruby dependencies
-  - package-ecosystem: "bundler"
+  # Python dependencies
+  - package-ecosystem: "pip"
     directory: "/"
     schedule:
       interval: "weekly"
@@ -9,15 +9,15 @@ updates:
       time: "09:00"
     open-pull-requests-limit: 10
     groups:
-      ruby-dependencies:
+      python-dependencies:
         patterns:
           - "*"
     commit-message:
-      prefix: "gems"
+      prefix: "pip"
       include: "scope"
     labels:
       - "dependencies"
-      - "ruby"
+      - "python"
     
   # Rust dependencies
   - package-ecosystem: "cargo"

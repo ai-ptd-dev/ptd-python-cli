@@ -17,7 +17,7 @@ Automatically detect changed Python files and transpile them to Rust implementat
 1. **Detect Changes**: Look at the git status output above to identify modified Python files (.py)
 2. **Analyze Changes**: Review the git diff to understand what changed in each Python file
 3. **Transpile to Rust**: For each changed Python file:
-   - Find the corresponding Rust file (e.g., src/basiccli/commands/hello.py → src/commands/hello.rs)
+   - Find the corresponding Rust file (e.g., src/basiccli/commands/hello.py → src/basiccli/commands/hello.rs)
    - Apply the equivalent changes to the Rust implementation
    - Ensure the Rust code follows idiomatic patterns and matches the Python functionality exactly
    - Handle any new error cases or edge cases introduced
@@ -34,13 +34,13 @@ Automatically detect changed Python files and transpile them to Rust implementat
 
 6. **Verification**:
    - Build the Rust binary: `cargo build --release`
-   - Compare outputs between Ruby and Rust implementations for consistency
+   - Compare outputs between Python and Rust implementations for consistency
 
 ## Project Structure:
 - Python files: src/basiccli/**/*.py
-- Rust files: src/**/*.rs
+- Rust files: src/basiccli/**/*.rs (side-by-side with Python)
 - Python tests: tests/**/*test_*.py
-- Rust tests: integrated into .rs files
+- Rust tests: tests/**/*test_*.rs (side-by-side with Python)
 
 ## Important:
 - Preserve the exact behavior and output formatting

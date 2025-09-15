@@ -6,7 +6,7 @@ import tempfile
 import time
 from dataclasses import dataclass
 from io import StringIO
-from typing import Any, Dict, List
+from typing import Any, Dict
 
 from ..utils.result import Result
 

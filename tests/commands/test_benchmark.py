@@ -1,10 +1,11 @@
 import json
 import sys
 
-import pytest
-
 sys.path.insert(0, "src")
-from basiccli.commands.benchmark import BenchmarkCommand
+
+import pytest  # noqa: E402
+
+from basiccli.commands.benchmark import BenchmarkCommand  # noqa: E402
 
 
 class TestBenchmarkCommand:
