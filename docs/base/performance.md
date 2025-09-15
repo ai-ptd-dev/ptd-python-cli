@@ -1,8 +1,8 @@
-# Performance Analysis: Ruby vs Rust
+# Performance Analysis: Python vs Rust
 
 ## Executive Summary
 
-BasicCli demonstrates the performance gains achievable through PTD (Polyglot Transpilation Development). By transpiling Ruby to Rust, we achieve:
+BasicCli demonstrates the performance gains achievable through PTD (Polyglot Transpilation Development). By transpiling Python to Rust, we achieve:
 
 - **51.6x faster startup**
 - **2.3x faster computation**
@@ -12,13 +12,13 @@ BasicCli demonstrates the performance gains achievable through PTD (Polyglot Tra
 
 ### Test Environment
 - **Platform**: Linux x86_64
-- **Ruby**: 3.2+ with Thor, optimized
+- **Python**: 3.8+ with Click, optimized
 - **Rust**: 1.75+ with release optimizations
 - **Test Date**: January 2025
 
 ### Startup Performance
 
-| Metric | Ruby | Rust | Improvement |
+| Metric | Python | Rust | Improvement |
 |--------|------|------|-------------|
 | Cold Start | 258ms | 5ms | **51.6x** |
 | Warm Start | 180ms | 3ms | **60x** |
@@ -26,9 +26,9 @@ BasicCli demonstrates the performance gains achievable through PTD (Polyglot Tra
 
 #### Why Such Dramatic Improvement?
 
-**Ruby Startup Overhead:**
-- Load Ruby interpreter (~100ms)
-- Parse and load gems (~80ms)
+**Python Startup Overhead:**
+- Load Python interpreter (~100ms)
+- Parse and load packages (~80ms)
 - Initialize Thor framework (~40ms)
 - Parse command-line (~20ms)
 - Execute user code (~18ms)
@@ -42,7 +42,7 @@ BasicCli demonstrates the performance gains achievable through PTD (Polyglot Tra
 
 Running 1000 iterations of each benchmark:
 
-| Operation | Ruby | Rust | Improvement |
+| Operation | Python | Rust | Improvement |
 |-----------|------|------|-------------|
 | String Manipulation | 28ms | 12ms | **2.3x** |
 | Array Operations | 22ms | 8ms | **2.8x** |
@@ -53,7 +53,7 @@ Running 1000 iterations of each benchmark:
 
 ### Memory Usage
 
-| Metric | Ruby | Rust | Reduction |
+| Metric | Python | Rust | Reduction |
 |--------|------|------|-----------|
 | Base Memory | 48MB | 2.8MB | **94%** |
 | Peak Memory (1K ops) | 65MB | 3.2MB | **95%** |
@@ -61,10 +61,10 @@ Running 1000 iterations of each benchmark:
 
 ### Binary Size
 
-| Configuration | Ruby | Rust |
+| Configuration | Python | Rust |
 |--------------|------|------|
 | Runtime Required | Yes (25MB) | No |
-| Dependencies | Gems (15MB) | None |
+| Dependencies | Packages (15MB) | None |
 | Application | 200KB | 1.1MB |
 | **Total Deployment** | **40MB+** | **1.1MB** |
 
@@ -74,7 +74,7 @@ Running 1000 iterations of each benchmark:
 
 For a tool run 100 times per day:
 
-**Ruby:**
+**Python:**
 - Total time: 100 × 258ms = 25.8 seconds/day
 - Memory impact: Significant GC pressure
 - System load: Higher
@@ -97,14 +97,14 @@ for file in *.json; do
 done
 ```
 
-**Ruby**: 1000 × 258ms = 4.3 minutes
+**Python**: 1000 × 258ms = 4.3 minutes
 **Rust**: 1000 × 5ms = 5 seconds
 
 **Time Saved: 4.2 minutes (98% reduction)**
 
 ## Performance Characteristics
 
-### Ruby Strengths
+### Python Strengths
 - Consistent performance after warmup
 - Good for long-running processes
 - Excellent string handling
@@ -134,10 +134,10 @@ done
    - No dynamic library lookup
    - Faster startup
 
-### Ruby Optimizations
+### Python Optimizations
 1. **Lazy Loading**: Defer gem loading
 2. **Bootsnap**: Cache expensive computations
-3. **JIT Compilation**: YJIT in Ruby 3.2+
+3. **JIT Compilation**: YJIT in Python 3.2+
 
 Despite optimizations, the fundamental differences remain:
 - Interpreted vs Compiled
@@ -153,4 +153,4 @@ The PTD approach with BasicCli demonstrates that:
 3. **Memory usage** is drastically reduced (94%)
 4. **Deployment** is simplified (single binary)
 
-For CLI tools, system utilities, and performance-critical applications, the PTD paradigm offers the best of both worlds: Ruby's development speed with Rust's execution speed.
+For CLI tools, system utilities, and performance-critical applications, the PTD paradigm offers the best of both worlds: Python's development speed with Rust's execution speed.

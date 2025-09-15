@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Run Python CLI
+cd "$(dirname "$0")/.."
+
+if ! command -v python3 &> /dev/null; then
+    echo "Error: Python 3 is not installed"
+    exit 1
+fi
+
+export PYTHONPATH="src:$PYTHONPATH"
+python3 -m basiccli.cli "$@"

@@ -2,9 +2,9 @@
 
 ## Prerequisites
 
-### For Ruby Development
-- Ruby 2.7+ (recommend 3.2+ for YJIT)
-- Bundler (`gem install bundler`)
+### For Python Development
+- Python 2.7+ (recommend 3.2+ for YJIT)
+- Bundler (`pip install -r requirements-dev.txt`)
 
 ### For Rust Compilation
 - Rust 1.70+ ([install from rustup.rs](https://rustup.rs/))
@@ -18,7 +18,7 @@ git clone https://github.com/ai-ptd-dev/basiccli
 cd basiccli
 ```
 
-### 2. Install Ruby Dependencies
+### 2. Install Python Dependencies
 ```bash
 bundle install
 ```
@@ -33,43 +33,43 @@ bundle install
 ```
 basiccli/
 ├── src/
-│   ├── cli.rb              # Ruby CLI entry point
+│   ├── cli.rb              # Python CLI entry point
 │   ├── cli.rs              # Rust CLI entry point (transpiled)
 │   ├── commands/
-│   │   ├── hello.rb        # Ruby command
+│   │   ├── hello.rb        # Python command
 │   │   ├── hello.rs        # Rust command (transpiled)
 │   │   ├── version.rb
 │   │   ├── version.rs
 │   │   └── ...
 │   └── utils/
-│       ├── logger.rb       # Ruby utility
+│       ├── logger.rb       # Python utility
 │       ├── logger.rs       # Rust utility (transpiled)
 │       └── ...
 ├── spec/
 │   ├── commands/
-│   │   ├── hello_spec.rb   # Ruby tests
+│   │   ├── hello_spec.rb   # Python tests
 │   │   ├── hello_test.rs   # Rust tests
 │   │   └── ...
 │   └── spec_helper.rb
 ├── bin/
-│   ├── basiccli-ruby       # Ruby executable
+│   ├── basiccli-python       # Python executable
 │   ├── basiccli-rust       # Rust executable
 │   ├── compile             # Build Rust binary
 │   ├── test               # Run Rust tests
-│   ├── rspec              # Run Ruby tests
+│   ├── pytest              # Run Python tests
 │   └── lint               # Lint both languages
 └── docs/                   # Documentation
 ```
 
 ## Running the CLI
 
-### Ruby Version (Development)
+### Python Version (Development)
 ```bash
 # Using the script
-./bin/basiccli-ruby hello "World"
+./bin/basiccli-python hello "World"
 
 # Direct execution
-bundle exec ruby src/cli.rb hello "World"
+python -m basiccli.cli hello "World"
 ```
 
 ### Rust Version (Production)
@@ -89,46 +89,46 @@ bundle exec ruby src/cli.rb hello "World"
 ### Hello Command
 ```bash
 # Basic greeting
-./bin/basiccli-ruby hello "Alice"
+./bin/basiccli-python hello "Alice"
 
 # With options
-./bin/basiccli-ruby hello "Bob" --uppercase --repeat 3
+./bin/basiccli-python hello "Bob" --uppercase --repeat 3
 ```
 
 ### Version Command
 ```bash
 # Human-readable
-./bin/basiccli-ruby version
+./bin/basiccli-python version
 
 # JSON output
-./bin/basiccli-ruby version --json
+./bin/basiccli-python version --json
 ```
 
 ### Benchmark Command
 ```bash
 # Run benchmarks
-./bin/basiccli-ruby benchmark 1000
+./bin/basiccli-python benchmark 1000
 
 # Output formats
-./bin/basiccli-ruby benchmark 1000 --output json
-./bin/basiccli-ruby benchmark 1000 --output csv
+./bin/basiccli-python benchmark 1000 --output json
+./bin/basiccli-python benchmark 1000 --output csv
 
 # Verbose mode
-./bin/basiccli-ruby benchmark 1000 --verbose
+./bin/basiccli-python benchmark 1000 --verbose
 ```
 
 ### Process Command
 ```bash
 # Process JSON file
-./bin/basiccli-ruby process data.json
+./bin/basiccli-python process data.json
 
 # With options
-./bin/basiccli-ruby process data.json --pretty --stats
+./bin/basiccli-python process data.json --pretty --stats
 ```
 
 ## Development Workflow
 
-### 1. Write Ruby Code
+### 1. Write Python Code
 Create your command in `src/commands/`:
 ```ruby
 module BasicCli
@@ -212,23 +212,23 @@ Runs Rust tests:
 ```
 
 ### `bin/rspec`
-Runs Ruby tests:
+Runs Python tests:
 ```bash
 ./bin/rspec
 ```
 
 ### `bin/lint`
-Lints and auto-fixes both Ruby and Rust:
+Lints and auto-fixes both Python and Rust:
 ```bash
 ./bin/lint
 ```
 
 ## Performance Comparison
 
-Compare Ruby vs Rust performance:
+Compare Python vs Rust performance:
 ```bash
-# Ruby version
-time ./bin/basiccli-ruby benchmark 1000
+# Python version
+time ./bin/basiccli-python benchmark 1000
 
 # Rust version
 time ./bin/basiccli-rust benchmark 1000
@@ -238,14 +238,14 @@ time ./bin/basiccli-rust benchmark 1000
 
 1. **Explore the code**: Look at existing commands for patterns
 2. **Add your command**: Follow the development workflow
-3. **Benchmark**: Compare Ruby vs Rust performance
+3. **Benchmark**: Compare Python vs Rust performance
 4. **Optimize**: Profile and improve bottlenecks
 5. **Deploy**: Use the Rust binary in production
 
 ## Tips
 
-- Keep Ruby and Rust implementations functionally identical
-- Use Ruby for rapid prototyping
+- Keep Python and Rust implementations functionally identical
+- Use Python for rapid prototyping
 - Transpile to Rust for production deployment
 - Run both test suites to ensure parity
 - Use the performance benchmarks to validate improvements

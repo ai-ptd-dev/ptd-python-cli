@@ -24,9 +24,9 @@ Based on your answers, I will:
 - Rename all BasicCli references to your project name
 - Update module names, binary names, and constants
 - Modify README.md with your project information
-- Update Cargo.toml and Gemfile with your project details
+- Update Cargo.toml and pyproject.toml with your project details
 - Rename the binary executables
 - Create an initial command structure based on your use case
 - Provide guidance on next steps for implementing your specific features
 
-The conversion will maintain the PTD (Polyglot Transpilation Development) paradigm, allowing you to develop in Ruby and deploy optimized Rust binaries.
+The conversion will maintain the PTD (Polyglot Transpilation Development) paradigm, allowing you to develop in Python and deploy optimized Rust binaries.

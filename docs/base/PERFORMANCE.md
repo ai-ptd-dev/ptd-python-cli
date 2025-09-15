@@ -1,10 +1,10 @@
-# Performance Comparison: Ruby vs Rust
+# Performance Comparison: Python vs Rust
 
-This document shows the performance improvements achieved by transpiling the Ruby CLI to Rust.
+This document shows the performance improvements achieved by transpiling the Python CLI to Rust.
 
 ## Test Environment
 - Platform: Linux
-- Ruby Version: 3.2+
+- Python Version: 3.2+
 - Rust Version: 1.75+
 - Test Date: 2025-01-15
 
@@ -13,7 +13,7 @@ This document shows the performance improvements achieved by transpiling the Rub
 ### Simple Command (hello)
 | Implementation | Real Time | User Time | Sys Time | Speedup |
 |---------------|-----------|-----------|----------|---------|
-| Ruby          | 258ms     | 195ms     | 58ms     | 1x      |
+| Python          | 258ms     | 195ms     | 58ms     | 1x      |
 | Rust          | 5ms       | 2ms       | 3ms      | **51.6x faster** |
 
 ## Benchmark Results (1000 iterations)
@@ -21,7 +21,7 @@ This document shows the performance improvements achieved by transpiling the Rub
 ### Overall Performance
 | Implementation | Total Time | Speedup |
 |---------------|------------|---------|
-| Ruby          | 91.33ms    | 1x      |
+| Python          | 91.33ms    | 1x      |
 | Rust          | 40.00ms    | **2.3x faster** |
 
 ### Detailed Benchmark Operations
@@ -35,7 +35,7 @@ The benchmark includes:
 ## Key Observations
 
 1. **Startup Performance**: Rust shows a massive **51x improvement** in startup time
-   - Ruby needs to load the interpreter and gems
+   - Python needs to load the interpreter and packages
    - Rust binary starts almost instantly
 
 2. **Computational Performance**: Rust is **2-3x faster** for CPU-intensive operations
@@ -51,7 +51,7 @@ The benchmark includes:
 ## Real-World Impact
 
 For a CLI tool that's run frequently:
-- **Ruby**: Good for development, rapid prototyping
+- **Python**: Good for development, rapid prototyping
 - **Rust**: Ideal for production, especially when:
   - Called in scripts/loops
   - Processing large amounts of data
@@ -61,7 +61,7 @@ For a CLI tool that's run frequently:
 ## Conclusion
 
 The PTD approach allows you to:
-1. Develop quickly in Ruby
+1. Develop quickly in Python
 2. Transpile to Rust for production
 3. Get 2-50x performance improvements
 4. Maintain identical functionality

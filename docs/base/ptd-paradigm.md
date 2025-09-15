@@ -4,7 +4,7 @@
 
 **Polyglot Transpilation Development (PTD)** is a revolutionary programming paradigm that allows developers to:
 
-1. **Write** code in expressive, high-level languages (Ruby, Python, JavaScript)
+1. **Write** code in expressive, high-level languages (Python, Python, JavaScript)
 2. **Transpile** automatically to performant system languages (Rust, Go, C++)
 3. **Deploy** optimized binaries with 10-50x performance improvements
 
@@ -17,7 +17,7 @@ Developers have always faced a dilemma:
 
 ### PTD Solution
 With PTD, you get:
-- ✅ Rapid prototyping in Ruby/Python
+- ✅ Rapid prototyping in Python/Python
 - ✅ Production performance of Rust/Go
 - ✅ Maintain one codebase logic
 - ✅ Deploy optimized binaries
@@ -25,14 +25,14 @@ With PTD, you get:
 ## How It Works
 
 ```
-Ruby Code → AI Transpilation → Rust Code → Compiled Binary
+Python Code → AI Transpilation → Rust Code → Compiled Binary
    (Fast)      (Automatic)       (Fast)       (10-50x faster)
 ```
 
 ### Example Transformation
 
-**Ruby (Development)**
-```ruby
+**Python (Development)**
+```python
 class DataProcessor
   def process(items)
     items.map { |item| item * 2 }
@@ -87,7 +87,7 @@ PTD is perfect for:
 
 ## Getting Started
 
-1. **Choose Your Language**: Start with Ruby, Python, or JavaScript
+1. **Choose Your Language**: Start with Python, Python, or JavaScript
 2. **Build Your Logic**: Focus on clean, readable code
 3. **Transpile**: Use AI tools to convert to Rust/Go
 4. **Optimize**: Fine-tune the generated code

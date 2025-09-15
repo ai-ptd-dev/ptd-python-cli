@@ -1,10 +1,10 @@
 ---
-description: Automatically transpile changed Ruby files to Rust
+description: Automatically transpile changed Python files to Rust
 agent: rust-transpiler
 model: anthropic/claude-sonnet-4-20250514
 ---
 
-Automatically detect changed Ruby files and transpile them to Rust implementations.
+Automatically detect changed Python files and transpile them to Rust implementations.
 
 ## Git Status
 !`git status --porcelain`
@@ -14,17 +14,17 @@ Automatically detect changed Ruby files and transpile them to Rust implementatio
 
 ## Instructions:
 
-1. **Detect Changes**: Look at the git status output above to identify modified Ruby files (.rb)
-2. **Analyze Changes**: Review the git diff to understand what changed in each Ruby file
-3. **Transpile to Rust**: For each changed Ruby file:
-   - Find the corresponding Rust file (e.g., src/commands/hello.rb → src/commands/hello.rs)
+1. **Detect Changes**: Look at the git status output above to identify modified Python files (.py)
+2. **Analyze Changes**: Review the git diff to understand what changed in each Python file
+3. **Transpile to Rust**: For each changed Python file:
+   - Find the corresponding Rust file (e.g., src/basiccli/commands/hello.py → src/commands/hello.rs)
    - Apply the equivalent changes to the Rust implementation
-   - Ensure the Rust code follows idiomatic patterns and matches the Ruby functionality exactly
+   - Ensure the Rust code follows idiomatic patterns and matches the Python functionality exactly
    - Handle any new error cases or edge cases introduced
 
 4. **Test the Changes**:
    - Run the Rust tests: `cargo test`
-   - Run the Ruby tests: `bundle exec rspec`
+   - Run the Python tests: `python -m pytest`
    - Ensure all tests pass
 
 5. **Lint and Format**:
@@ -37,10 +37,10 @@ Automatically detect changed Ruby files and transpile them to Rust implementatio
    - Compare outputs between Ruby and Rust implementations for consistency
 
 ## Project Structure:
-- Ruby files: src/**/*.rb
+- Python files: src/basiccli/**/*.py
 - Rust files: src/**/*.rs
-- Ruby tests: spec/**/*_spec.rb
-- Rust tests: integrated into .rs files or in spec/**/*_test.rs
+- Python tests: tests/**/*test_*.py
+- Rust tests: integrated into .rs files
 
 ## Important:
 - Preserve the exact behavior and output formatting

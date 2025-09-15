@@ -1,19 +1,19 @@
-# PTD Ruby CLI - Developer-First Framework with OpenCode AI
+# PTD Python CLI - Developer-First Framework with OpenCode AI
 
-> **Write Ruby, Ship Rust**: Real developers using OpenCode AI agents to achieve 250x performance gains through automatic transpilation.
+> **Write Python, Ship Rust**: Real developers using OpenCode AI agents to achieve 250x performance gains through automatic transpilation.
 
-This framework demonstrates **PTD (Polyglot Transpilation Development)** - a developer-first approach where you write Ruby code and OpenCode AI agents automatically create optimized Rust versions. No manual porting, no compromise on performance.
+This framework demonstrates **PTD (Polyglot Transpilation Development)** - a developer-first approach where you write Python code and OpenCode AI agents automatically create optimized Rust versions. No manual porting, no compromise on performance.
 
 ## 🚀 Quick Start for Developers
 
 ### Start Your Own Project (Fork This!)
 ```bash
 # 1. Fork this repository on GitHub first, then:
-git clone https://github.com/YOUR-USERNAME/ptd-ruby-cli.git
-cd ptd-ruby-cli
+git clone https://github.com/YOUR-USERNAME/ptd-python-cli.git
+cd ptd-python-cli
 
 # 2. Install dependencies
-bundle install
+pip install -r requirements-dev.txt
 
 # 3. Customize it for your project with OpenCode
 opencode
@@ -25,8 +25,8 @@ opencode
 > exit
 
 # 4. Try the example commands (now with your project name!)
-./bin/yourcli-ruby hello
-./bin/yourcli-ruby version
+./bin/yourcli-python hello
+./bin/yourcli-python version
 
 # 5. Build and run the Rust version
 ./bin/compile
@@ -34,32 +34,32 @@ opencode
 ```
 
 ### See a Complete Example: TodoCLI
-Want to see what you can build? Check out the **[todo-list-example branch](https://github.com/ai-ptd-dev/ptd-ruby-cli/tree/todo-list-example)**:
+Want to see what you can build? Check out the **[todo-list-example branch](https://github.com/ai-ptd-dev/ptd-python-cli/tree/todo-list-example)**:
 - Full todo list manager with SQLite
 - 7 commands, 69 tests, 250x performance gain
 - Shows OpenCode agents in action
 
 ```bash
 # View the example (don't clone, just browse)
-# https://github.com/ai-ptd-dev/ptd-ruby-cli/tree/todo-list-example
+# https://github.com/ai-ptd-dev/ptd-python-cli/tree/todo-list-example
 ```
 
 ## 📊 AI-Achieved Performance Gains
 
 OpenCode agents automatically optimized the transpilation to achieve:
 
-| Metric | Ruby | Rust | AI Improvement |
-|--------|------|------|----------------|
+| Metric | Python | Rust | AI Improvement |
+|--------|--------|------|----------------|
 | **Startup Time** | 250ms | 1ms | **250x faster** |
 | **Memory Usage** | 29MB | 3MB | **90% reduction** |
 | **Binary Size** | 40MB+ deps | 1.1MB | **97% smaller** |
-| **Cold Start** | Ruby + bundler | Native binary | **Instant execution** |
+| **Cold Start** | Python + venv | Native binary | **Instant execution** |
 
 ## 🎯 What is PTD?
 
 **Polyglot Transpilation Development** is an AI-powered programming paradigm where:
 
-1. **🚀 Rapid Development**: Write in expressive languages (Ruby, Python)
+1. **🚀 Rapid Development**: Write in expressive languages (Python, Ruby)
 2. **🤖 AI Transpilation**: OpenCode agents automatically convert to system languages (Rust, Go)  
 3. **⚡ Production Deployment**: Ship optimized native binaries with massive performance gains
 4. **🔄 Continuous Parity**: Maintain identical functionality across language implementations
@@ -80,7 +80,7 @@ OpenCode agents automatically optimized the transpilation to achieve:
 ```
 .opencode/
 ├── agent/                  # AI agent personalities
-│   ├── ruby-dev.md        # Ruby expert following SOLID principles
+│   ├── python-dev.md      # Python expert following SOLID principles
 │   └── rust-transpiler.md # Rust expert for transpilation
 └── command/               # OpenCode commands you can run
     ├── transpile.md       # Auto-transpile Ruby changes to Rust
@@ -106,11 +106,11 @@ opencode
             # - Applies formatting and linting
 
 # 3. Or call specific agents directly:
-@ruby-dev        # Ruby expert for SOLID principles & clean code
+@python-dev      # Python expert for SOLID principles & clean code
                  # "Create a new command that processes CSV files"
                  
 @rust-transpiler # Rust expert for manual transpilation
-                 # "Convert this Ruby method to idiomatic Rust"
+                 # "Convert this Python method to idiomatic Rust"
 
 # 4. Example workflow after forking:
 opencode
@@ -120,22 +120,22 @@ opencode
 > [AI renames everything and sets up your project]
 
 # 5. Development cycle:
-vim src/commands/deploy.rb  # Write Ruby code
+vim src/basiccli/commands/deploy.py  # Write Python code
 opencode
-> /transpile                 # AI transpiles to Rust
+> /transpile                          # AI transpiles to Rust
 # OR manually with agents:
-> @ruby-dev help me improve this command
+> @python-dev help me improve this command
 > @rust-transpiler convert the deploy command to Rust
 > exit
 
-./bin/rspec                  # Verify Ruby tests
-./bin/test                   # Verify Rust tests  
-./bin/compile                # Build optimized binary
+./bin/pytest                         # Verify Python tests
+./bin/test                           # Verify Rust tests  
+./bin/compile                        # Build optimized binary
 ```
 
 ### Developer Workflow with OpenCode
 
-1. **Write Ruby First**: Focus on functionality, not performance
+1. **Write Python First**: Focus on functionality, not performance
 2. **OpenCode Transpiles**: AI agents convert to idiomatic Rust
 3. **Tests Ensure Parity**: Both implementations tested automatically
 4. **Deploy Rust Binary**: Ship the performance-optimized version
@@ -143,24 +143,27 @@ opencode
 ## 📁 Project Structure
 
 ```
-ptd-ruby-cli/
+ptd-python-cli/
 ├── .opencode/              # OpenCode AI configuration
 │   ├── agent/             # AI agent definitions
 │   └── command/           # Automation commands
 ├── src/
-│   ├── cli.rb             # Ruby entry point
+│   ├── basiccli/
+│   │   ├── cli.py         # Python entry point
+│   │   ├── commands/
+│   │   │   └── *.py       # Your Python implementations
+│   │   └── utils/
+│   │       └── *.py       # Python utilities
 │   ├── cli.rs             # Rust entry point (AI-transpiled)
 │   ├── commands/
-│   │   ├── *.rb           # Your Ruby implementations
 │   │   └── *.rs           # AI-generated Rust versions
 │   └── utils/
-│       ├── *.rb           # Ruby utilities
 │       └── *.rs           # Rust utilities (AI-transpiled)
-├── spec/                   # Test suites for both languages
+├── tests/                  # Test suites for both languages
 ├── bin/                    # Developer tools
 │   ├── compile            # Build Rust binary
 │   ├── test              # Run Rust tests
-│   ├── rspec             # Run Ruby tests
+│   ├── pytest           # Run Python tests
 │   └── lint              # Lint both languages
 └── docs/                   # Documentation
 ```
@@ -180,26 +183,28 @@ ptd-ruby-cli/
 ### Developer Tools
 - `./bin/compile` - Build optimized Rust binary
 - `./bin/test` - Run Rust test suite
-- `./bin/rspec` - Run Ruby test suite
+- `./bin/pytest` - Run Python test suite
 - `./bin/lint` - Auto-fix code style issues
 
 ## 💻 Real Developer Workflow
 
-### Step 1: Write Your Ruby Code (Focus on Logic)
-```ruby
-# src/commands/myfeature.rb
-module TodoCli
-  module Commands
-    class MyFeature
-      def execute(options = {})
-        # Write clean Ruby - OpenCode handles the rest
-        database = Utils::Database.new
-        results = database.query(options[:filter])
-        puts format_output(results)
-      end
-    end
-  end
-end
+### Step 1: Write Your Python Code (Focus on Logic)
+```python
+# src/basiccli/commands/myfeature.py
+from dataclasses import dataclass
+from typing import Optional
+
+from ..utils.database import Database
+from ..utils.result import Result
+
+@dataclass
+class MyFeature:
+    def execute(self, filter_option: Optional[str] = None) -> Result:
+        # Write clean Python - OpenCode handles the rest
+        database = Database()
+        results = database.query(filter_option)
+        print(self.format_output(results))
+        return Result(success=True, message="Feature executed")
 ```
 
 ### Step 2: OpenCode Transpiles Automatically
@@ -209,7 +214,7 @@ opencode
 > /transpile
 
 # OpenCode AI agent:
-# ✓ Detects your Ruby changes via git
+# ✓ Detects your Python changes via git
 # ✓ Understands the business logic
 # ✓ Generates idiomatic Rust code
 # ✓ Maintains error handling patterns
@@ -220,16 +225,17 @@ opencode
 ```rust
 // src/commands/myfeature.rs (AI-generated)
 use crate::utils::database::Database;
+use crate::utils::result::Result as CliResult;
 use anyhow::Result;
 
 pub struct MyFeature;
 
 impl MyFeature {
-    pub fn execute(&self, filter: Option<&str>) -> Result<()> {
+    pub fn execute(&self, filter: Option<&str>) -> Result<CliResult> {
         let db = Database::new()?;
         let results = db.query(filter)?;
         println!("{}", self.format_output(&results));
-        Ok(())
+        Ok(CliResult::new(true, "Feature executed".to_string()))
     }
 }
 ```
@@ -237,8 +243,8 @@ impl MyFeature {
 ### Step 4: Verify & Deploy
 ```bash
 # Tests pass for both implementations
-./bin/rspec  # ✓ Ruby tests
-./bin/test   # ✓ Rust tests
+./bin/pytest  # ✓ Python tests
+./bin/test    # ✓ Rust tests
 
 # Ship the fast version
 ./bin/compile
@@ -250,17 +256,17 @@ impl MyFeature {
 ### Proven Performance Gains (todo-list-example branch)
 
 **Daily CLI Usage (100 operations)**:
-- **Ruby Version**: 25 seconds total startup overhead
+- **Python Version**: 25 seconds total startup overhead
 - **Rust Version**: 0.1 seconds total startup time
 - **Net Benefit**: 24.9 seconds saved daily (99.6% improvement)
 
 **Batch Processing (1000 database operations)**:
-- **Ruby Implementation**: 4.2 minutes execution time
+- **Python Implementation**: 4.2 minutes execution time
 - **Rust Implementation**: 4 seconds execution time  
 - **Net Benefit**: 4+ minutes saved per batch (98.4% improvement)
 
 ### Development Velocity Impact
-- **Ruby Development Time**: 2 days for full TodoCLI implementation
+- **Python Development Time**: 2 days for full TodoCLI implementation
 - **Manual Rust Port Time**: Estimated 5-7 days for equivalent functionality
 - **OpenCode Transpilation Time**: Automated in minutes
 - **Total Time Saved**: 3-5 days of development effort
@@ -280,8 +286,8 @@ impl MyFeature {
 - [**Performance Analysis**](docs/base/performance.md) - Real benchmarks
 
 ### OpenCode Agent Capabilities
-- **ruby-dev Agent**: Writes clean Ruby following SOLID principles
-- **rust-transpiler Agent**: Converts Ruby to optimized Rust
+- **python-dev Agent**: Writes clean Python following SOLID principles
+- **rust-transpiler Agent**: Converts Python to optimized Rust
 - **Semantic Understanding**: Preserves business logic, not just syntax
 - **Test Generation**: Creates comprehensive test suites
 - **Performance Optimization**: Applies Rust best practices automatically
@@ -299,7 +305,7 @@ The **[todo-list-example branch](https://github.com/ai-ptd-dev/ptd-ruby-cli/tree
 1. **Fork this repository**
 2. **Rename** BasicCli to your project name
 3. **Add commands** following the pattern
-4. **Write tests** for both Ruby and Rust
+4. **Write tests** for both Python and Rust
 5. **Deploy** the Rust binary
 
 ### Customization Example
@@ -310,11 +316,11 @@ git clone https://github.com/yourusername/mycli
 cd mycli
 
 # Add your command
-vim src/commands/deploy.rb
+vim src/basiccli/commands/deploy.py
 vim src/commands/deploy.rs
 
 # Test both versions
-./bin/rspec
+./bin/pytest
 ./bin/test
 
 # Ship it!
@@ -343,15 +349,15 @@ MIT License - Use freely in your projects
 
 ## 🌟 Why BasicCli?
 
-- **Best of Both Worlds**: Ruby's expressiveness, Rust's performance
-- **Side-by-Side Code**: See Ruby and Rust implementations together
+- **Best of Both Worlds**: Python's expressiveness, Rust's performance
+- **Side-by-Side Code**: See Python and Rust implementations together
 - **Production Ready**: Full test suites, linting, documentation
 - **Real Performance**: Not theoretical - actual 50x startup improvement
 - **Developer Friendly**: Helper scripts for common tasks
 
 ## 🚦 Status
 
-- ✅ Ruby implementation complete
+- ✅ Python implementation complete
 - ✅ Rust transpilation complete  
 - ✅ Test suites passing
 - ✅ Documentation complete

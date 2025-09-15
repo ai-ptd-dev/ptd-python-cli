@@ -1,20 +1,28 @@
 #!/bin/bash
 
-# Lint and auto-fix Ruby and Rust code
+# Lint and auto-fix Python and Rust code
 cd "$(dirname "$0")/.."
 
 echo "🔍 Linting and fixing code..."
 echo "============================="
 
-# Ruby linting with Rubocop
-if command -v bundle &> /dev/null; then
+# Python linting with black, flake8, and isort
+if command -v python3 &> /dev/null; then
     echo ""
-    echo "💎 Ruby linting with Rubocop..."
-    bundle exec rubocop -A --color
-    RUBY_EXIT=$?
+    echo "🐍 Python formatting with black..."
+    python3 -m black src/ tests/ || echo "⚠️  black not installed, run: pip install black"
+    
+    echo ""
+    echo "🐍 Python import sorting with isort..."
+    python3 -m isort src/ tests/ || echo "⚠️  isort not installed, run: pip install isort"
+    
+    echo ""
+    echo "🐍 Python linting with flake8..."
+    python3 -m flake8 src/ tests/ || echo "⚠️  flake8 not installed, run: pip install flake8"
+    PYTHON_EXIT=$?
 else
-    echo "⚠️  Skipping Ruby lint (bundler not installed)"
-    RUBY_EXIT=0
+    echo "⚠️  Skipping Python lint (python3 not installed)"
+    PYTHON_EXIT=0
 fi
 
 # Rust linting with clippy and formatting
@@ -33,7 +41,7 @@ else
 fi
 
 echo ""
-if [ $RUBY_EXIT -eq 0 ] && [ $RUST_EXIT -eq 0 ]; then
+if [ $PYTHON_EXIT -eq 0 ] && [ $RUST_EXIT -eq 0 ]; then
     echo "✅ All linting complete!"
     exit 0
 else

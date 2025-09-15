@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Run Python pytest tests
+echo "🐍 Running Python pytest tests..."
+echo "================================="
+
+cd "$(dirname "$0")/.."
+
+if ! command -v python3 &> /dev/null; then
+    echo "Error: Python 3 is not installed"
+    exit 1
+fi
+
+if ! python3 -c "import pytest" &> /dev/null; then
+    echo "Error: pytest is not installed"
+    echo "Install with: pip install pytest"
+    exit 1
+fi
+
+python3 -m pytest tests/ "$@"
+
+if [ $? -eq 0 ]; then
+    echo "✅ All Python tests passed!"
+else
+    echo "❌ Some Python tests failed"
+    exit 1
+fi
