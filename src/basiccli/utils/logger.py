@@ -36,36 +36,36 @@ class Logger:
         self.output = output
         self.mutex = threading.Lock()
 
-    def debug(self, message: str, metadata: Optional[Dict[str, Any]] = None):
+    def debug(self, message: str, metadata: Optional[Dict[str, Any]] = None) -> None:
         self._log(LogLevel.DEBUG, message, metadata or {})
 
-    def info(self, message: str, metadata: Optional[Dict[str, Any]] = None):
+    def info(self, message: str, metadata: Optional[Dict[str, Any]] = None) -> None:
         self._log(LogLevel.INFO, message, metadata or {})
 
-    def warn(self, message: str, metadata: Optional[Dict[str, Any]] = None):
+    def warn(self, message: str, metadata: Optional[Dict[str, Any]] = None) -> None:
         self._log(LogLevel.WARN, message, metadata or {})
 
-    def error(self, message: str, metadata: Optional[Dict[str, Any]] = None):
+    def error(self, message: str, metadata: Optional[Dict[str, Any]] = None) -> None:
         self._log(LogLevel.ERROR, message, metadata or {})
 
-    def fatal(self, message: str, metadata: Optional[Dict[str, Any]] = None):
+    def fatal(self, message: str, metadata: Optional[Dict[str, Any]] = None) -> None:
         self._log(LogLevel.FATAL, message, metadata or {})
 
-    def with_timing(self, message: str):
+    def with_timing(self, message: str) -> Any:
         """Context manager for timing operations"""
 
         class TimingContext:
-            def __init__(self, logger, message):
+            def __init__(self, logger: "Logger", message: str) -> None:
                 self.logger = logger
                 self.message = message
-                self.start_time = None
+                self.start_time: Optional[float] = None
 
-            def __enter__(self):
+            def __enter__(self) -> "TimingContext":
                 self.start_time = time.perf_counter()
                 self.logger.info(f"Starting: {self.message}")
                 return self
 
-            def __exit__(self, exc_type, exc_val, exc_tb):
+            def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
                 elapsed = time.perf_counter() - (self.start_time or 0)
                 if exc_type is None:
                     self.logger.info(
@@ -88,7 +88,7 @@ class Logger:
 
         return TimingContext(self, message)
 
-    def progress(self, current: int, total: int, message: str = "Progress"):
+    def progress(self, current: int, total: int, message: str = "Progress") -> None:
         percentage = round(current / total * 100, 1)
         bar_length = 30
         filled = round(bar_length * (current / total))
@@ -101,7 +101,7 @@ class Logger:
                 self.output.write("\n")
             self.output.flush()
 
-    def _log(self, severity: LogLevel, message: str, metadata: Dict[str, Any]):
+    def _log(self, severity: LogLevel, message: str, metadata: Dict[str, Any]) -> None:
         if severity < self.level:
             return
 
@@ -136,42 +136,42 @@ class Logger:
 
 
 class FileLogger(Logger):
-    def __init__(self, filename: str, **options):
+    def __init__(self, filename: str, **options: Any) -> None:
         self.file = open(filename, "a")
         super().__init__(**{**options, "output": self.file, "use_colors": False})
 
-    def __del__(self):
+    def __del__(self) -> None:
         if hasattr(self, "file") and not self.file.closed:
             self.file.close()
 
 
 class MultiLogger:
-    def __init__(self, *loggers: Logger):
+    def __init__(self, *loggers: Logger) -> None:
         self.loggers = loggers
 
-    def debug(self, message: str, metadata: Optional[Dict[str, Any]] = None):
+    def debug(self, message: str, metadata: Optional[Dict[str, Any]] = None) -> None:
         for logger in self.loggers:
             logger.debug(message, metadata)
 
-    def info(self, message: str, metadata: Optional[Dict[str, Any]] = None):
+    def info(self, message: str, metadata: Optional[Dict[str, Any]] = None) -> None:
         for logger in self.loggers:
             logger.info(message, metadata)
 
-    def warn(self, message: str, metadata: Optional[Dict[str, Any]] = None):
+    def warn(self, message: str, metadata: Optional[Dict[str, Any]] = None) -> None:
         for logger in self.loggers:
             logger.warn(message, metadata)
 
-    def error(self, message: str, metadata: Optional[Dict[str, Any]] = None):
+    def error(self, message: str, metadata: Optional[Dict[str, Any]] = None) -> None:
         for logger in self.loggers:
             logger.error(message, metadata)
 
-    def fatal(self, message: str, metadata: Optional[Dict[str, Any]] = None):
+    def fatal(self, message: str, metadata: Optional[Dict[str, Any]] = None) -> None:
         for logger in self.loggers:
             logger.fatal(message, metadata)
 
-    def with_timing(self, message: str):
+    def with_timing(self, message: str) -> Any:
         return self.loggers[0].with_timing(message)
 
-    def progress(self, current: int, total: int, message: str = "Progress"):
+    def progress(self, current: int, total: int, message: str = "Progress") -> None:
         for logger in self.loggers:
             logger.progress(current, total, message)

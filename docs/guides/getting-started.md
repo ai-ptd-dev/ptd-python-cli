@@ -3,8 +3,8 @@
 ## Prerequisites
 
 ### For Python Development
-- Python 2.7+ (recommend 3.2+ for YJIT)
-- Bundler (`pip install -r requirements-dev.txt`)
+- Python 3.10+ (recommend 3.12+ for best performance)
+- pip (`pip install -r requirements-dev.txt`)
 
 ### For Rust Compilation
 - Rust 1.70+ ([install from rustup.rs](https://rustup.rs/))
@@ -14,13 +14,13 @@
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/ai-ptd-dev/basiccli
-cd basiccli
+git clone https://github.com/ai-ptd-dev/ptd-python-cli
+cd ptd-python-cli
 ```
 
 ### 2. Install Python Dependencies
 ```bash
-bundle install
+pip install -r requirements-dev.txt
 ```
 
 ### 3. Compile Rust Binary (Optional)
@@ -31,32 +31,37 @@ bundle install
 ## Project Structure
 
 ```
-basiccli/
+ptd-python-cli/
 ├── src/
-│   ├── cli.rb              # Python CLI entry point
-│   ├── cli.rs              # Rust CLI entry point (transpiled)
+│   ├── basiccli/
+│   │   ├── cli.py          # Python CLI entry point
+│   │   ├── commands/
+│   │   │   ├── hello.py    # Python command
+│   │   │   ├── hello.rs    # Rust command (side-by-side)
+│   │   │   ├── version.py
+│   │   │   ├── version.rs
+│   │   │   └── ...
+│   │   └── utils/
+│   │       ├── logger.py   # Python utility
+│   │       ├── logger.rs   # Rust utility (side-by-side)
+│   │       └── ...
+│   ├── cli.rs              # Rust CLI entry point
+│   └── lib.rs              # Rust library exports
+├── tests/
 │   ├── commands/
-│   │   ├── hello.rb        # Python command
-│   │   ├── hello.rs        # Rust command (transpiled)
-│   │   ├── version.rb
-│   │   ├── version.rs
+│   │   ├── test_hello.py   # Python tests
+│   │   ├── test_hello.rs   # Rust tests (side-by-side)
 │   │   └── ...
 │   └── utils/
-│       ├── logger.rb       # Python utility
-│       ├── logger.rs       # Rust utility (transpiled)
+│       ├── test_logger.py  # Python utility tests
+│       ├── test_logger.rs  # Rust utility tests (side-by-side)
 │       └── ...
-├── spec/
-│   ├── commands/
-│   │   ├── hello_spec.rb   # Python tests
-│   │   ├── hello_test.rs   # Rust tests
-│   │   └── ...
-│   └── spec_helper.rb
 ├── bin/
-│   ├── basiccli-python       # Python executable
+│   ├── basiccli-python     # Python executable
 │   ├── basiccli-rust       # Rust executable
 │   ├── compile             # Build Rust binary
 │   ├── test               # Run Rust tests
-│   ├── pytest              # Run Python tests
+│   ├── pytest            # Run Python tests
 │   └── lint               # Lint both languages
 └── docs/                   # Documentation
 ```
@@ -69,7 +74,7 @@ basiccli/
 ./bin/basiccli-python hello "World"
 
 # Direct execution
-python -m basiccli.cli hello "World"
+PYTHONPATH=src python -m basiccli.cli hello "World"
 ```
 
 ### Rust Version (Production)
@@ -129,63 +134,74 @@ python -m basiccli.cli hello "World"
 ## Development Workflow
 
 ### 1. Write Python Code
-Create your command in `src/commands/`:
-```ruby
-module BasicCli
-  module Commands
-    class MyCommand
-      def initialize(options = {})
-        @options = options
-      end
-      
-      def execute
-        puts "Hello from MyCommand!"
-      end
-    end
-  end
-end
+Create your command in `src/basiccli/commands/`:
+```python
+from dataclasses import dataclass
+from typing import Optional
+
+from ..utils.result import Result
+
+@dataclass
+class MyCommand:
+    name: str
+    options: Optional[dict] = None
+    
+    def execute(self) -> Result:
+        print(f"Hello from MyCommand, {self.name}!")
+        return Result(success=True, message="Command executed successfully")
 ```
 
 ### 2. Add to CLI
-Register in `src/cli.rb`:
-```ruby
-desc "mycommand", "Description here"
-def mycommand
-  command = Commands::MyCommand.new(options)
-  command.execute
-end
+Register in `src/basiccli/cli.py`:
+```python
+@cli.command()
+@click.argument('name')
+def mycommand(name: str):
+    """Description here"""
+    command = MyCommand(name)
+    result = command.execute()
+    if not result.success:
+        click.echo(f"Error: {result.message}", err=True)
+        sys.exit(1)
 ```
 
 ### 3. Write Tests
-Create `spec/commands/mycommand_spec.rb`:
-```ruby
-RSpec.describe BasicCli::Commands::MyCommand do
-  it 'executes successfully' do
-    command = described_class.new
-    expect { command.execute }.to output(/Hello/).to_stdout
-  end
-end
+Create `tests/commands/test_mycommand.py`:
+```python
+import sys
+
+sys.path.insert(0, "src")
+
+from basiccli.commands.mycommand import MyCommand  # noqa: E402
+
+def test_executes_successfully():
+    command = MyCommand("TestUser")
+    result = command.execute()
+    assert result.success is True
+    assert "TestUser" in result.message
 ```
 
 ### 4. Run Tests
 ```bash
-./bin/rspec
+./bin/pytest
 ```
 
 ### 5. Transpile to Rust
-Manually create `src/commands/mycommand.rs`:
+Create side-by-side `src/basiccli/commands/mycommand.rs`:
 ```rust
+use anyhow::Result;
+
 pub struct MyCommand {
-    // fields
+    name: String,
 }
 
 impl MyCommand {
-    pub fn new() -> Self {
-        Self {}
+    pub fn new(name: String) -> Self {
+        Self { name }
     }
     
     pub fn execute(&self) -> Result<()> {
-        println!("Hello from MyCommand!");
+        println!("Hello from MyCommand, {}!", self.name);
         Ok(())
     }
 }
@@ -211,10 +227,10 @@ Runs Rust tests:
 ./bin/test
 ```
 
-### `bin/rspec`
+### `bin/pytest`
 Runs Python tests:
 ```bash
-./bin/rspec
+./bin/pytest
 ```
 
 ### `bin/lint`
@@ -249,3 +265,4 @@ time ./bin/basiccli-rust benchmark 1000
 - Transpile to Rust for production deployment
 - Run both test suites to ensure parity
 - Use the performance benchmarks to validate improvements
+- Files are organized side-by-side for easy comparison and maintenance

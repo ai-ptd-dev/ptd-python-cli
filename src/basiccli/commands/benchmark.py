@@ -163,7 +163,7 @@ class BenchmarkCommand:
                 data[f"key_{i}"] = i * 2
             sorted(data.keys())
             sum(data.values())
-            data.update({"extra": "data"})
+            data.update({"extra": 999})
             {k: v for k, v in data.items() if isinstance(v, int) and v > 50}
 
         end_time = time.perf_counter()

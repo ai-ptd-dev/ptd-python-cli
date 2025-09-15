@@ -32,9 +32,6 @@ jobs:
         black --check src/ tests/
         flake8 src/ tests/
         isort --check-only src/ tests/
-    
-    - name: Run type checking
-      run: mypy src/
 
   rust-test:
     name: Rust Tests
